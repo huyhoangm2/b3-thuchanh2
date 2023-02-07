@@ -1,25 +1,36 @@
 import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+import styles from "./styles.module.css";
+import styled from 'styled-components';
 
-function App() {
+export default function App() {
+  const [numClicked, setNumClicked] = useState(0);
+  const handleClick = () => {
+    setNumClicked((current) => {
+      return current = current + 1;
+    });
+  };
+  const textStyle = (numClicked % 2 === 0) ? styles.textBlue : styles.textRed;
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={handleClick}>Click here</button>
+      <h2 className={textStyle}>You clicked {numClicked} times</h2>
+      <h2 
+style={{
+        color:  (numClicked % 2 === 0) ? 'blue' : 'red'
+}}
+>You clicked {numClicked} times
+</h2>
     </div>
   );
+  
 }
-
-export default App;
+const StyledText = styled.h2`
+  color: ${(props) => {
+    if (props.numClicked % 2 === 0) {
+      return "blue";
+    }
+    return "red";
+  }};
+`;
